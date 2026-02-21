@@ -36,6 +36,7 @@ public class UserDAOImpl implements UserDAO{
 			preparedStatement.setString(1,email);
 			ResultSet rs = preparedStatement.executeQuery();
 			if(rs.next()) {
+				user.setId(rs.getInt("id"));
 				user.setName(rs.getString("name"));
 				user.setEmail(rs.getString("email"));
 				user.setBalance(rs.getBigDecimal("balance"));
@@ -57,6 +58,7 @@ public class UserDAOImpl implements UserDAO{
 			ResultSet rs = preparedStatement.executeQuery();
 			while(rs.next()) {
 				User user = new User();
+				user.setId(rs.getInt("id"));
 				user.setName(rs.getString("name"));
 				user.setEmail(rs.getString("email"));
 				user.setBalance(rs.getBigDecimal("balance"));
