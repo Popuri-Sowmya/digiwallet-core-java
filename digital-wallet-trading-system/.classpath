@@ -7,5 +7,7 @@
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="C:/Users/alekh/Downloads/postgresql-42.7.10.jar"/>
+	<classpathentry kind="lib" path="C:/Users/alekh/Downloads/junit-platform-console-standalone-1.8.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/alekh/Downloads/junit-jupiter-api-6.0.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
