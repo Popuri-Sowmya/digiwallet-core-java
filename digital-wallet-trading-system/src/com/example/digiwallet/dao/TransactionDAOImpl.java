@@ -17,15 +17,8 @@ public class TransactionDAOImpl implements TransactionDAO{
 	@Override
 	public int save(Transaction transaction) {
 		// TODO Auto-generated method stub
-		String sql = "INSERT INTO transactions (user_id,type,amount) " +
-				"VALUES (?, ?,?)";
-		try(Connection con = DBConnection.getConnection();
-			PreparedStatement preparedStatement = con.prepareStatement(sql)	){
-			preparedStatement.setInt(1,transaction.getUserId());
-			preparedStatement.setObject(2, transaction.getType().name(), java.sql.Types.OTHER);
-			preparedStatement.setBigDecimal(3,transaction.getAmount());
-			int rowsInserted = preparedStatement.executeUpdate();
-			return rowsInserted;
+		try(Connection con = DBConnection.getConnection();){
+			return save(transaction,con);
 		}catch(SQLException e) {
 			throw new RuntimeException("Error while inserting transaction in db: ",e);
 		}
@@ -76,6 +69,21 @@ public class TransactionDAOImpl implements TransactionDAO{
 			throw new RuntimeException("Error while fetching the transaction in db: ",e);
 		}
 		return transactions;
+	}
+
+	@Override
+	public int save(Transaction transaction, Connection con) {
+		String sql = "INSERT INTO transactions (user_id,type,amount) " +
+				"VALUES (?, ?,?)";
+		try(PreparedStatement preparedStatement = con.prepareStatement(sql)	){
+			preparedStatement.setInt(1,transaction.getUserId());
+			preparedStatement.setObject(2, transaction.getType().name(), java.sql.Types.OTHER);
+			preparedStatement.setBigDecimal(3,transaction.getAmount());
+			int rowsInserted = preparedStatement.executeUpdate();
+			return rowsInserted;
+		}catch(SQLException e) {
+			throw new RuntimeException("Error while inserting transaction in db: ",e);
+		}
 	}
 
 }

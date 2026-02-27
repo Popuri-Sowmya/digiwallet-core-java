@@ -70,4 +70,51 @@ public class UserDAOImpl implements UserDAO{
 		return users;
 	}
 
+	@Override
+	public Optional<User> getUserById(int id) {
+		// TODO Auto-generated method stub
+		String sql = "SELECT * FROM USERS WHERE id=?";
+		User user = new User();
+		try(Connection con = DBConnection.getConnection();
+				PreparedStatement preparedStatement = con.prepareStatement(sql)	){
+			preparedStatement.setInt(1,id);
+			ResultSet rs = preparedStatement.executeQuery();
+			if(rs.next()) {
+				user.setId(rs.getInt("id"));
+				user.setName(rs.getString("name"));
+				user.setEmail(rs.getString("email"));
+				user.setBalance(rs.getBigDecimal("balance"));
+				return Optional.of(user);
+			}
+			return Optional.empty();
+		}catch(SQLException e) {
+			throw new RuntimeException("Error while fetching the user in db: ",e);
+		}
+	}
+
+	@Override
+	public int update(User user) {
+		// TODO Auto-generated method stub
+		try(Connection con = DBConnection.getConnection();){
+				return update(user,con);
+			}catch(SQLException e) {
+				throw new RuntimeException("Error while inserting user in db: ",e);
+			}
+	}
+
+	@Override
+	public int update(User user, Connection con) {
+		String sql = "UPDATE users SET name=?, email=?, balance=? WHERE id=?";
+		try(PreparedStatement preparedStatement = con.prepareStatement(sql)	){
+				preparedStatement.setString(1,user.getName());
+				preparedStatement.setString(2,user.getEmail());
+				preparedStatement.setBigDecimal(3,user.getBalance());
+				preparedStatement.setInt(4,user.getId());
+				int rowsInserted = preparedStatement.executeUpdate();
+				return rowsInserted;
+			}catch(SQLException e) {
+				throw new RuntimeException("Error while inserting user in db: ",e);
+			}
+	}
+
 }

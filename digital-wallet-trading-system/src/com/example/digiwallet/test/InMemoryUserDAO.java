@@ -3,6 +3,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Map;
 import java.util.HashMap;
+import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.example.digiwallet.dao.UserDAO;
@@ -30,5 +31,25 @@ public class InMemoryUserDAO implements UserDAO{
 		// TODO Auto-generated method stub
 		return new ArrayList<>(users.values());
 	}
+
+	@Override
+	public Optional<User> getUserById(int id) {
+		// TODO Auto-generated method stub
+		return Optional.empty();
+	}
+
+	@Override
+	public int update(User user) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int update(User user, Connection con) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	
 
 }
