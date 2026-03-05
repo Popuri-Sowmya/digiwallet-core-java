@@ -1,8 +1,8 @@
 package com.example.digiwallet.dao;
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.*;
 import com.example.digiwallet.dao.UserDAO;
-import com.example.digiwallet.model.User;
+import com.example.digiwallet.model.*;
 
 public class AnalyticsService {
 	private final UserDAO userDAO;

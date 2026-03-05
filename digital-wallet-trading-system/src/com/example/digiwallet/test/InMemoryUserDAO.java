@@ -35,19 +35,21 @@ public class InMemoryUserDAO implements UserDAO{
 	@Override
 	public Optional<User> getUserById(int id) {
 		// TODO Auto-generated method stub
-		return Optional.empty();
+		return users.values().stream().filter(u->u.getId()==id).findFirst();
 	}
 
 	@Override
 	public int update(User user) {
 		// TODO Auto-generated method stub
-		return 0;
+		users.put(user.getEmail(),user);
+		return 1;
 	}
 
 	@Override
 	public int update(User user, Connection con) {
 		// TODO Auto-generated method stub
-		return 0;
+		users.put(user.getEmail(),user);
+		return 1;
 	}
 	
 	
